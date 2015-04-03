@@ -6,6 +6,7 @@ class Trie ( object ) :
 		self.data = data
 		self.dict = {}
 
+
 	def insert ( self , string , i , j , data ) :
 
 		if i >= j : return
@@ -18,19 +19,19 @@ class Trie ( object ) :
 
 		node.insert( string , i + 1 , j , data )
 
+
 	def longestprefix ( self , string , i , j ) :
+
+		if i >= j : return ( i , self )
 
 		character = string[i]
 
-		if i == j - 1 : return ( i , self.dict.get( character , None ) )
-
 		node = self.dict.get( character , None )
 
-		if node is None : return ( i , None )
+		if node is None : return ( i , self )
 
-		k , next = node.longestprefix( string , i + 1 , j )
+		return node.longestprefix( string , i + 1 , j )
 
-		return ( i , node ) if next is None else ( k , next )
 
 def checkio ( words ) :
 
@@ -44,10 +45,9 @@ def checkio ( words ) :
 
 		i , node = trie.longestprefix( drow , 0 , n )
 
-		if ( node and node.data ) or i == n - 1 : return True
+		if node.data or i == n : return True
 
-		if node : node.insert( drow , i + 1 , n , True )
-		else    : trie.insert( drow ,   0   , n , True )
+		node.insert( drow , i , n , True )
 
 	return False
 
