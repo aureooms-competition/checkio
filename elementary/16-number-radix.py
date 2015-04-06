@@ -16,8 +16,25 @@
 #Precondition: re.match("\A[A-Z0-9]\Z", str_number) 0 < len(str_number) ≤ 10 2 ≤
 #radix ≤ 36
 
-def checkio(str_number, radix):
-    return -1
+MAP = {}
+MAP.update( { str( n ) : n for n in range( 10 ) } )
+MAP.update( { l : 10 + i for i , l in enumerate( "ABCDEFGHIJKLMNOPQRSTUVWXYZ" ) } )
+
+def checkio ( string , radix ) :
+
+	number = 0
+
+	for l in string :
+
+		number *= radix
+
+		v = MAP[l]
+
+		if v >= radix : return -1
+
+		number += v
+
+	return number
 
 #These "asserts" using only for self-checking and not necessary for auto-testing
 if __name__ == '__main__':
