@@ -13,13 +13,20 @@
 #
 #Precondition:
 #
-#all(ch in (string.punctuation + string.ascii_letters + " ") for ch in text) 0 <
-#len(text)
-def check_pangram(text):
-    return True or False
+#all(ch in (string.punctuation + string.ascii_letters + " ") for ch in text)
+#0 < len(text)
+
+
+def check_pangram ( text ) :
+	inascii = lambda c : ord( 'a' ) <= ord( c ) <= ord( 'z' )
+	return len( set( filter( inascii , text.lower( ) ) ) ) == 26
+
+def check_pangram ( text ) :
+	inascii = set( "abcdefghijklmnopqrstuvwxyz" ).__contains__
+	return len( set( filter( inascii , text.lower( ) ) ) ) == 26
 
 if __name__ == '__main__':
-    # These "asserts" using only for self-checking and not necessary for auto-testing
-    assert check_pangram("The quick brown fox jumps over the lazy dog."), "brown fox"
-    assert not check_pangram("ABCDEF"), "ABC"
-    assert check_pangram("Bored? Craving a pub quiz fix? Why, just come to the Royal Oak!"), "Bored?"
+	# These "asserts" using only for self-checking and not necessary for auto-testing
+	assert check_pangram("The quick brown fox jumps over the lazy dog."), "brown fox"
+	assert not check_pangram("ABCDEF"), "ABC"
+	assert check_pangram("Bored? Craving a pub quiz fix? Why, just come to the Royal Oak!"), "Bored?"
