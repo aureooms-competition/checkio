@@ -16,9 +16,9 @@
 #Precondition: re.match("\A[A-Z0-9]\Z", str_number) 0 < len(str_number) ≤ 10 2 ≤
 #radix ≤ 36
 
-MAP = {}
-MAP.update( { str( n ) : n for n in range( 10 ) } )
-MAP.update( { l : 10 + i for i , l in enumerate( "ABCDEFGHIJKLMNOPQRSTUVWXYZ" ) } )
+value = {}
+value.update( { str( n ) : n for n in range( 10 ) } )
+value.update( { l : 10 + i for i , l in enumerate( "ABCDEFGHIJKLMNOPQRSTUVWXYZ" ) } )
 
 def checkio ( string , radix ) :
 
@@ -28,7 +28,7 @@ def checkio ( string , radix ) :
 
 		number *= radix
 
-		v = MAP[l]
+		v = value[l]
 
 		if v >= radix : return -1
 
