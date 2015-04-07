@@ -73,20 +73,37 @@
 #Precondition: All data are correct.
 
 class Building:
-    def __init__(self, south, west, width_WE, width_NS, height=10):
-        raise NotImplementedError
 
-    def corners(self):
-        raise NotImplementedError
+	def __init__ ( self , south , west , width_we , width_ns , height = 10 ) :
 
-    def area(self):
-        raise NotImplementedError
+		self.south = south
+		self.west = west
+		self.width_we = width_we
+		self.width_ns = width_ns
+		self.height = height
 
-    def volume(self):
-        raise NotImplementedError
+	def corners ( self ) :
 
-    def __repr__(self):
-        raise NotImplementedError
+		south = self.south
+		west = self.west
+		east = west + self.width_we
+		north = south + self.width_ns
+
+		return {
+			"north-west" : [ north , west ] ,
+			"north-east" : [ north , east ] ,
+			"south-west" : [ south , west ] ,
+			"south-east" : [ south , east ]
+		}
+
+	def area ( self ) :
+		return self.width_we * self.width_ns
+
+	def volume ( self ) :
+		return self.area( ) * self.height
+
+	def __repr__ ( self ) :
+		return "Building({south}, {west}, {width_we}, {width_ns}, {height})".format( **self.__dict__ )
 
 
 if __name__ == '__main__':
