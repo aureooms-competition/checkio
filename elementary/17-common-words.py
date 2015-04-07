@@ -13,8 +13,8 @@
 #Precondition: Each string contains no more than 10 words.  All words separated
 #by commas.  All words consist of lowercase latin letters.
 
-def checkio(first, second):
-    return ""
+def checkio ( first , second ) :
+    return ','.join( sorted( set( first.split( ',' ) ).intersection( set( second.split( ',' ) ) ) ) )
 
 #These "asserts" using only for self-checking and not necessary for auto-testing
 if __name__ == '__main__':
