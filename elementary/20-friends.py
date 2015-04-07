@@ -93,7 +93,7 @@ class Friends :
 
 	def exists ( self , a , b ) :
 
-		return b in self.dict and a in self.connected( b )
+		return a in self.connected( b )
 
 	def add ( self , connection ) :
 
