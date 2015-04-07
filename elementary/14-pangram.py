@@ -17,13 +17,21 @@
 #0 < len(text)
 
 
-def check_pangram ( text ) :
-	inascii = lambda c : ord( 'a' ) <= ord( c ) <= ord( 'z' )
+def c1 ( text ) :
+	inascii = lambda c : 'a' <= c <= 'z'
+	return len( set( filter( inascii , text.lower( ) ) ) ) == 26
+
+def c2 ( text ) :
+	inascii = lambda c : 97 <= ord( c ) <= 122
+	return len( set( filter( inascii , text.lower( ) ) ) ) == 26
+
+def c3 ( text ) :
+	inascii = set( "abcdefghijklmnopqrstuvwxyz" ).__contains__
 	return len( set( filter( inascii , text.lower( ) ) ) ) == 26
 
 def check_pangram ( text ) :
-	inascii = set( "abcdefghijklmnopqrstuvwxyz" ).__contains__
-	return len( set( filter( inascii , text.lower( ) ) ) ) == 26
+	from random import choice
+	return choice( ( c1 , c2 , c3 ) )( text )
 
 if __name__ == '__main__':
 	# These "asserts" using only for self-checking and not necessary for auto-testing
