@@ -18,8 +18,8 @@
 #Precondition: len(set(abs(x) for x in array)) == len(array) 0 < len(array) <
 #100 all(isinstance(x, int) for x in array) all(-100 < x < 100 for x in array)
 
-def checkio(numbers_array):
-    return numbers_array
+def checkio ( input ) :
+    return sorted( input , key = abs )
 
 #These "asserts" using only for self-checking and not necessary for auto-testing
 if __name__ == '__main__':
