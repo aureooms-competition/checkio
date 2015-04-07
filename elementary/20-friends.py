@@ -83,32 +83,63 @@
 #
 #Precondition: All data is correct.
 
-class Friends:
-    def __init__(self, connections):
-        raise NotImplementedError
+class Friends :
 
-    def add(self, connection):
-        raise NotImplementedError
+	def __init__ ( self , connections ) :
 
-    def remove(self, connection):
-        raise NotImplementedError
+		self.dict = {}
 
-    def names(self):
-        raise NotImplementedError
+		for connection in connections : self.add( connection )
 
-    def connected(self, name):
-        raise NotImplementedError
+	def exists ( self , a , b ) :
+
+		return b in self.dict and a in self.connected( b )
+
+	def add ( self , connection ) :
+
+		a , b = connection
+
+		if self.exists( a , b ) : return False
+
+		self.dict.setdefault( a , set( ) ).add( b )
+		self.dict.setdefault( b , set( ) ).add( a )
+
+		return True
+
+	def remove ( self , connection ) :
+
+		a , b = connection
+
+		if not self.exists( a , b ) : return False
+
+		A = self.dict[a]
+		A.remove( b )
+		B = self.dict[b]
+		B.remove( a )
+
+		if not A : del self.dict[a]
+		if not B : del self.dict[b]
+
+		return True
+
+	def names ( self ) :
+
+		return set( self.dict.keys( ) )
+
+	def connected ( self , name ) :
+
+		return self.dict.get( name , set( ) )
 
 
 
 if __name__ == '__main__':
-    #These "asserts" using only for self-checking and not necessary for auto-testing
-    letter_friends = Friends(({"a", "b"}, {"b", "c"}, {"c", "a"}, {"a", "c"}))
-    digit_friends = Friends([{"1", "2"}, {"3", "1"}])
-    assert letter_friends.add({"c", "d"}) is True, "Add"
-    assert letter_friends.add({"c", "d"}) is False, "Add again"
-    assert letter_friends.remove({"c", "d"}) is True, "Remove"
-    assert digit_friends.remove({"c", "d"}) is False, "Remove non exists"
-    assert letter_friends.names() == {"a", "b", "c"}, "Names"
-    assert letter_friends.connected("d") == set(), "Non connected name"
-    assert letter_friends.connected("a") == {"b", "c"}, "Connected name"
+	#These "asserts" using only for self-checking and not necessary for auto-testing
+	letter_friends = Friends(({"a", "b"}, {"b", "c"}, {"c", "a"}, {"a", "c"}))
+	digit_friends = Friends([{"1", "2"}, {"3", "1"}])
+	assert letter_friends.add({"c", "d"}) is True, "Add"
+	assert letter_friends.add({"c", "d"}) is False, "Add again"
+	assert letter_friends.remove({"c", "d"}) is True, "Remove"
+	assert digit_friends.remove({"c", "d"}) is False, "Remove non exists"
+	assert letter_friends.names() == {"a", "b", "c"}, "Names"
+	assert letter_friends.connected("d") == set(), "Non connected name"
+	assert letter_friends.connected("a") == {"b", "c"}, "Connected name"
